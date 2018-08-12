@@ -15,7 +15,7 @@ $(".back-button").click(function() {
 });
 
 $(".up-button").click(function() { 	 
-var parents = current_item.get_parents();
+var parents = itemList.get_parents(current_item.id);
 		if(parents !== undefined && parents.length != 0){	
 		current_item = itemList.get_parents(current_item.id)[0];
 		console.log(current_item);

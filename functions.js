@@ -84,6 +84,7 @@ function view_task_list(){
    var items=itemList.get_all();
 	var items_with_meta = [];
 	
+	
 	if(type!="*") items=items.query("type", "==", type); 	// filtrera på type om type är vald	
 	if(icon) items=items.query("icon", "==", icon); 	// filtrera på ikon om ikon är vald	
 		
@@ -101,8 +102,10 @@ function view_task_list(){
 		debug.comment("Efter metadata");
 		//if (query=="" & type=="*") 	items = items.query("open_task_count", "==", 0);		// filtrera bort projekt som redan har subtask
 		
+		//console.log(items);
 		//filtrera allmänt
 		items =items
+      .query("has_parent", "==", false) 	// filtrera på type om type är vald	
 			.query("type", "!=", 13) //inte kategorier
 			//	.query("finish_date", "==", "")
 			.query("notes", "!=", undefined) //ful-fix för att undvika crash vid filter nedan, (items som saknar notes)
@@ -111,7 +114,7 @@ function view_task_list(){
 		//sortera items
 		items.sort(firstBy("finish_date","-1").thenBy("prio").thenBy("postpone") .thenBy("order_main"));
 		
-		mustache_output("#tasks", items, "#filtered_task_template", "prio");
+		mustache_output("#tasks", items, "#filtered_task_template");
 	}
 		//finished items
 	else { 
@@ -290,7 +293,7 @@ function mustache_output(output_id, items, template_id, group_by){
 
 function item_with_meta(id){
 	var item = JSON.parse(JSON.stringify(itemList.get_item(id))); //kopia av item
-	open_tasks = itemList.get_all().query("parent_id", "==", id).query("finish_date","==","");
+	/*open_tasks = itemList.get_childres.query("parent_id", "==", id).query("finish_date","==","");
    finished_tasks = itemList.get_all().query("parent_id", "==", id).query("finish_date","!=","");
     
     // sortera array med items
@@ -300,19 +303,16 @@ function item_with_meta(id){
 	item.open_task_count = open_tasks.length;
 	item.finished_task_count = finished_tasks.length;
  	if(moment(item.postpone, 'YYYY-MM-DD ddd HH:mm') < moment()) item.postpone =""; 
-
+	
 	item.finish_day = moment(item.finish_date,'YYYY-MM-DD HH:mm').format('YYYY-MM-DD ddd');
-	
+	*/
 	//parent_tree
-	var parent= itemList.get_item(item.parent_id);
- 	item.parent_tree ="";
 	
-
-	var counter = 10;
-	while(parent && (counter-- >0)){	
-		item.parent_tree = "/"+ parent.title + item.parent_tree;
-		parent= itemList.get_item(parent.parent_id);
-	}
+	//har item ett projekt parent?
+	var parents= itemList.get_parents(id).query("type","<","3");
+	console.log(itemList.get_parents(id));	
+	if(parents.length > 0) item.has_parent = true;
+	else item.has_parent = false;
 
 	return item;
 }

@@ -48,7 +48,7 @@
 				
 				<select class="type_filter" style="background-color: rgba(255,255,255,.1); font-size:16pt; width:120px; float:left; margin-right:10px;">
 					<option value="*">-All types-</option>				
-					<option value="1">Page</option>
+					<option value="1" selected>Page</option>
 					<option value="2">Project</option>
 					<option value="3">Area</option>
 					<option value="4">Milestone</option>
@@ -70,13 +70,13 @@
 					<option value="finished">finished</option>
 				</select>
 
-           <button class="new-item-button" style="float:right;" onclick="$('.new-item-div').toggle();">New</button>
+        <button class="new-item-button" style="float:right;" onclick="$('.new-item-div').toggle();">New</button>
 				<div class="new-item-div" style="position: absolute; width: 130px; height:300px; right:0; top: 40px; padding:10px; display:none; text-align: right;">
 					<!--button style="margin-bottom: 10px;">Idea</button><br-->
-					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"6", parent_id:"", icon:"", prio:"1", category: "1", postpone:""});'>🌅 Solvik</button><br>
-					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"6", parent_id:"", icon:"", prio:"1", category: "2", postpone:""});'>🏡 Hemmet</button><br>
-					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"6", parent_id:"", icon:"", prio:"1", category: "3", postpone:""});'>🙇 Personligt</button><br>
-					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"6", parent_id:"", icon:"", prio:"1", category: "4", postpone:""});'>📢 Engagemang</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"1", icon:"", prio:"1", postpone:""});'>Page</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"2", icon:"", prio:"1", postpone:""});'>Project</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"3", icon:"", prio:"1", postpone:""});'>Area</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"6", icon:"", prio:"1", postpone:""});'>Idea</button><br>
 					<!--button style="margin-bottom: 10px;">Project Group</button><br>
 					<button style="margin-bottom: 10px;">Document</button-->				
 				</div>
@@ -157,8 +157,19 @@
 						<option value="6">Idea</option>
 				</select>
 		</div><!end filter div>
-     <button class="new-task-button" style="float:right;">New Task</button>
-    
+		<button class="new-item-button" style="float:right;" onclick="$('.new-item-div').toggle();">New</button>
+				<div class="new-item-div" style="position: absolute; width: 130px; height:300px; right:0; top: 100px; padding:10px; display:none; text-align: right;">
+					<!--button style="margin-bottom: 10px;">Idea</button><br-->
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"1", icon:"", prio:"1", postpone:""});'>Page</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"2", icon:"", prio:"1", postpone:""});'>Project</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"3", icon:"", prio:"1", postpone:""});'>Area</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"4", icon:"", prio:"1", postpone:""});'>Milestone</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"5", icon:"", prio:"1", postpone:""});'>Task</button><br>
+					<button style="margin-bottom: 10px;" onclick='view_new({title:title, type:"6", icon:"", prio:"1", postpone:""});'>Idea</button><br>
+					<!--button style="margin-bottom: 10px;">Project Group</button><br>
+					<button style="margin-bottom: 10px;">Document</button-->				
+				</div>    
+
 	</div><!-- end controls-->
 	
 	<!-- Projektlista -->
@@ -271,6 +282,12 @@
 			<! TITLE >
 				<input class="autovalue" name="title" type="text" style="margin-bottom:5px; height:50px; font-size:1.3em"/><br/>
 				
+			<! PARENT >
+		        <span class="field-description">Parent item in tree</span>
+		        <input id="parent" class="autovalue"  type="text" placeholder="Type item name or id" style="margin-bottom:5px;height:40px; font-size:1.1em; width: 100%;"/>	
+		         	<div class="parents"></div>
+   			
+
 			<! CONTEXT>
         	<span class="field-description">Context</span>  
   
@@ -303,11 +320,7 @@
   						<label><input type="radio" name="prio" value="6" /><img src="img/none.png"></label>
         		</div>
 				
-			<! PARENT >
-		        <span class="field-description">Parent item in tree</span>
-		        <input id="parent" class="autovalue"  type="text" placeholder="Type item name or id" style="margin-bottom:5px;height:40px; font-size:1.1em; width: 100%;"/>	
-		         	<div class="parents"></div>
-   			
+		
 			<! NOTES >
 				<textarea class="autovalue" name="notes" rows="8" placeholder="Notes"></textarea>
 
