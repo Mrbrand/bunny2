@@ -151,18 +151,17 @@ function view_single_issue (id) {
 	var open_items = itemList.get_all();
 	var open_items_with_meta = [];
 	
-	open_items =itemList.get_children(id);
-	console.log(open_items);
+	open_items =itemList.get_children(id).query("finish_date","==","");
+	
  	if(type!="*") open_items=open_items.query("type", "==", type); 	// filtrera på type om type är vald	
-
+	
 	open_items.forEach(function(item) {
 		open_items_with_meta.push(item_with_meta(item.id));
 	});
 	open_items = open_items_with_meta;
 
-    var finished_items = itemList.get_all()
+    var finished_items = itemList.get_children(id)
     	.query("finish_date","!=","")
-    	.query("parent_id", "==", id)
     	.sort(firstBy("finish_date",-1));
 
 	console.log(open_items);
