@@ -102,6 +102,7 @@ Carbon.prototype.add_item = function(item) {
     console.log(item);
     this.itemArray.push(item);
     this.save();
+		return item.id;
 };
 
 //remove_item
@@ -156,8 +157,9 @@ Carbon.prototype.copy = function(id) {
 Carbon.prototype.add_from_form = function(form_id) {
 	//skapa objekt av formdata
     var form_object = $( form_id ).serializeObject();
-	this.add_item(form_object);
+		var id = this.add_item(form_object);
     console.log("add_from_form");
+		return id;
 };
 	
     

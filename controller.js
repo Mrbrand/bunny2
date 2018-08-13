@@ -2,7 +2,9 @@
 
 $(".add-button").click(function() {
    id = itemList.add_from_form(current_page+" form");
-
+	console.log(id);	 
+	if(current_item) itemList.add_relation(current_item.id, id);
+	if(current_item.type==3 || current_item.type==4) itemList.add_relation(itemList.get_parents(current_item.id)[0].id,id);
 	awesomplete.list = itemList.get_quicklist();
 	//awesomplete2.list = itemList.get_quicklist();
    open_page(previous_page);
@@ -109,7 +111,6 @@ $(".finish-button").click(function() {
 	    itemList.save();	       
        open_page(previous_page);
         //$("body").scrollTop(scroll_position);
-        
  });
  
  // import-button
@@ -136,31 +137,7 @@ $(".more-button").click(function() {
 	$('.more-button').hide();
 });
  
- 
 
-// NEW TASK BUTTON ITEM_VIEW
-$("#single_issue .new-task-button").click(function() { 
-	view_new({title:"", type:"6", parent_id: current_item.id,  icon:"", prio:"1", category: current_item.category, postpone: ""});
-});
-
-// NEW PROJECT BUTTON ITEM_VIEW
-$("#single_issue .new-project-button").click(function() { 
-	view_new( {title:"", type:"7", parent_id: current_item.id,  icon:"", prio:"1", category: current_item.category, postpone: ""});
-});
-
-// NEW TASK BUTTON TASK_LIST (filter view)
-$("#task_list .new-task-button").click(function() { 
-	var category = $("#category_filter").val(); if (category =="*") category = "-";
-	var title = $("#search").val(); 		
-	view_new({title:title, type:"6", parent_id:"", icon:"", prio:"1", category: category, postpone:""});	
-});
-
-// NEW PROJECT BUTTON TASK_LIST (filter view)
-$("#task_list .new-project-button").click(function() { 
-	var title = $("#search").val(); 	
-	var category = $("#category_filter").val(); if (category =="*") category = "-";	
-	view_new({title:title, type:"7", parent_id:"", icon:"", prio:"1", category: category, postpone:""});
-});
 
 // NEW CHILD 
 $(document).on('click', ".subitem-right", function() {
@@ -168,8 +145,6 @@ $(document).on('click', ".subitem-right", function() {
 	item = itemList.get_item(id);
 	view_new( {title:"", type:"6", parent_id: item.id,  icon:"", prio:"1", category: item.category, postpone: ""});
 });
-
-
 
 
 

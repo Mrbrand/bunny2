@@ -126,6 +126,10 @@ function view_task_list(){
 
 	//sätta current_items för sortable	
 	current_items = items;
+	
+	//sätta current_items för sortable	
+	current_item = undefined;
+	
 
 	if (items.length == 0) $("#open_items").append("<div class='empty'>No items here</div>");  	//om inga items hittas
 
