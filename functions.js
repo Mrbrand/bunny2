@@ -163,10 +163,11 @@ function view_single_issue (id) {
 	
     var finished_items = itemList.get_children(id)
     	.query("finish_date","!=","")
-			.query("type", "==", type)
     	.sort(firstBy("finish_date",-1));
+			if(type!="*") finished_items=finished_items.query("type", "==", type); 	
+	
 
-	console.log(open_items);
+//console.log(open_items);
 
 	mustache_output("#open", open_items, "#open_task_template"); //! !!!!!!
 	
