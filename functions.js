@@ -19,7 +19,8 @@ items.forEach(function(item) {
 
 // Manuell sortering 
 Sortable.create(document.getElementById('open'), {handle: '.subitem-right',onSort: function (evt) {
-    reorder(evt.oldIndex, evt.newIndex, "order");
+	//alert("From " + evt.detail.startIndex + " to " + evt.detail.newIndex);    
+	reorder(evt.oldIndex, evt.newIndex, "order");
 }});
 
 Sortable.create(document.getElementById('tasks'), {draggable: ".item",  handle: '.subitem-right',onSort: function (evt) {
@@ -159,7 +160,7 @@ function view_single_issue (id) {
 	});
 	open_items = open_items_with_meta;
 	open_items = open_items
-		.sort(firstBy("prio").thenBy("update_date",-1));
+		.sort(firstBy("order").thenBy("update_date",-1));
 	
     var finished_items = itemList.get_children(id)
     	.query("finish_date","!=","")
@@ -230,8 +231,14 @@ function view_settings(){
     $("#export_count").append(items.query("finish_date", "!=", "").length+" finished items");
 }
 
-function reorder(from_pos, to_pos, field){
 
+
+
+
+function reorder(from_pos, to_pos, field){
+		console.log(from_pos);
+console.log(to_pos);
+console.log(field);
     var offset = 0;
     //debug.begin("reorder");
 	
@@ -257,12 +264,12 @@ function reorder(from_pos, to_pos, field){
 					item[field] = to_pos;
 				//console.log(item[field] );
 			}
-			//console.log(item);(id, field, value)
+			console.log(item)
 			
     }
     //console.log(items);
   
-	current_items = current_items.sort(firstBy("order_main"));
+	current_items = current_items.sort(firstBy("order"));
    itemList.save(); 
 	//debug.stop();
 }
