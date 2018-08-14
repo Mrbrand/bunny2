@@ -148,10 +148,9 @@ function view_single_issue (id) {
 
 	var type = $("#single_issue .type_filter").val();
 	
-	var open_items = itemList.get_all();
 	var open_items_with_meta = [];
 	
-	open_items =itemList.get_children(id).query("finish_date","==","");
+	var open_items =itemList.get_children(id).query("finish_date","==","");
 	
  	if(type!="*") open_items=open_items.query("type", "==", type); 	// filtrera på type om type är vald	
 	
@@ -159,9 +158,12 @@ function view_single_issue (id) {
 		open_items_with_meta.push(item_with_meta(item.id));
 	});
 	open_items = open_items_with_meta;
-
+	open_items = open_items
+		.sort(firstBy("prio").thenBy("update_date",-1));
+	
     var finished_items = itemList.get_children(id)
     	.query("finish_date","!=","")
+			.query("type", "==", type)
     	.sort(firstBy("finish_date",-1));
 
 	console.log(open_items);
