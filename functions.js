@@ -322,6 +322,9 @@ function item_with_meta(id){
 	//parent_tree
 	
 	//har item ett projekt parent?
+	item.subitems = itemList.get_children(item.id);	
+	item.subitems = item.subitems.query("prio", "==", "1");
+	item.subitems = item.subitems.query("finish_date", "==", "");
 	var parents= itemList.get_parents(id).query("type","<","3");
 	console.log(itemList.get_parents(id));	
 	if(parents.length > 0) item.has_parent = true;
