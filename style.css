@@ -3,6 +3,7 @@ body {margin:0;  font-family:Verdana,Tahoma;background:#A0A040;}
 .page {width:100%;    top:0px;   display:none; min-height:600px;}
 .header{ padding:5px; background:#A0A040; margin:0; height:45px; font-size: 12pt; display: block;}
 
+.parent_item {background: #ffff99; padding:2px; border-radius:3px; margin:3px;}
 #task_list .header{background:#4d987b; }
 #task_list.page{background:#4d987b; }
 

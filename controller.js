@@ -3,8 +3,10 @@
 $(".add-button").click(function() {
    id = itemList.add_from_form(current_page+" form");
 	console.log(id);	 
-	if(current_item) itemList.add_relation(current_item.id, id);
-	if(current_item.type==3 || current_item.type==4) itemList.add_relation(itemList.get_parents(current_item.id)[0].id,id);
+	if(current_item) {
+		itemList.add_relation(current_item.id, id);
+		if(current_item.type==3 || current_item.type==4) itemList.add_relation(itemList.get_parents(current_item.id)[0].id,id);
+	}	
 	awesomplete.list = itemList.get_quicklist();
 	//awesomplete2.list = itemList.get_quicklist();
    open_page(previous_page);
@@ -172,7 +174,7 @@ $(".save-button").click(function() {
 
 // swipe back
 $("#single_issue").on('swiperight',  function(){ 
-		var parents = current_item.get_parent();
+		var parents = itemList.get_parents(current_item.id);
 		if(parents !== undefined && parents.length != 0){	
 		current_item = itemList.get_parents(current_item.id)[0];
 		console.log(current_item);
@@ -183,7 +185,8 @@ $("#single_issue").on('swiperight',  function(){
 
 // swipe back
 $("#single_issue").on('swipeleft',  function(){ 
-		open_page("#task_list");
+		console.log(	 previous_page );
+		open_page(previous_page);
 });
 
 
